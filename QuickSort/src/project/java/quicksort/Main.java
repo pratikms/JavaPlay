@@ -1,7 +1,5 @@
 package project.java.quicksort;
 
-import java.util.Arrays;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -32,30 +30,29 @@ public class Main {
 
     public static int partition(int[] input, int start, int end) {
 
+        // Using the first element as pivot
         int pivot = input[start];
         int i = start;
-        int j = end - 1;
+        int j = end;
 
         while (i < j) {
-            if (input[i] == pivot) {
-                if (pivot > input[j]) {
-                    input[i] = input[j];
-                    input[j] = pivot;
-                    i++;
-                } else {
-                    j--;
-                }
-            } else if (input[j] == pivot) {
-                if (pivot < input[i]) {
-                    input[j] = input[i];
-                    input[i] = pivot;
-                    j--;
-                } else {
-                    i++;
-                }
+
+            // NOTE: empty loop body
+            while (i < j && input[--j] >= pivot);
+            if (i < j) {
+                input[i] = input[j];
             }
+
+            // NOTE: empty loop body
+            while (i < j && input[++i] <= pivot);
+            if (i < j) {
+                input[j] = input[i];
+            }
+
         }
 
-        return Arrays.binarySearch(input, pivot);
+        input[j] = pivot;
+        return j;
+
     }
 }
